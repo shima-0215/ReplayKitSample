@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ReplayKitSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="a7D-3Q-I5U">
+                                <rect key="frame" x="20" y="144" width="374" height="618"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xor-MI-fgo">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="299"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ogf-jY-Rbl">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="299"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3E2-yX-Lhz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="187" height="299"/>
+                                                        <state key="normal" title="Recording"/>
+                                                        <connections>
+                                                            <action selector="recording" destination="BYZ-38-t0r" eventType="touchUpInside" id="mWX-rw-tvl"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCT-Ab-lMh">
+                                                        <rect key="frame" x="187" y="0.0" width="187" height="299"/>
+                                                        <state key="normal" title="Capture"/>
+                                                        <connections>
+                                                            <action selector="capture" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zvb-m6-vXn"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="3E2-yX-Lhz" firstAttribute="width" secondItem="cCT-Ab-lMh" secondAttribute="width" id="vwg-9f-g7A"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="Ogf-jY-Rbl" firstAttribute="top" secondItem="Xor-MI-fgo" secondAttribute="top" id="0EG-2s-nRD"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ogf-jY-Rbl" secondAttribute="trailing" id="agY-Xi-fuQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ogf-jY-Rbl" secondAttribute="bottom" id="oDy-ZS-n2i"/>
+                                            <constraint firstItem="Ogf-jY-Rbl" firstAttribute="leading" secondItem="Xor-MI-fgo" secondAttribute="leading" id="twN-WX-Sxo"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YJc-YI-unv">
+                                        <rect key="frame" x="0.0" y="319" width="374" height="299"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vgG-aI-hsB">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="299"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ulu-bu-FkR">
+                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="299"/>
+                                                        <state key="normal" title="Broadcast"/>
+                                                        <connections>
+                                                            <action selector="broadcast" destination="BYZ-38-t0r" eventType="touchUpInside" id="crE-eJ-uL1"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFA-rd-LxH">
+                                                        <rect key="frame" x="131.5" y="0.0" width="111" height="299"/>
+                                                        <state key="normal" title="Pairing"/>
+                                                        <connections>
+                                                            <action selector="broadcastPairing" destination="BYZ-38-t0r" eventType="touchUpInside" id="iSc-jf-WNo"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rbl-Z4-U3W">
+                                                        <rect key="frame" x="262.5" y="0.0" width="111.5" height="299"/>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="vgG-aI-hsB" firstAttribute="leading" secondItem="YJc-YI-unv" secondAttribute="leading" id="WKB-cn-4ll"/>
+                                            <constraint firstAttribute="trailing" secondItem="vgG-aI-hsB" secondAttribute="trailing" id="YIO-TD-36i"/>
+                                            <constraint firstAttribute="bottom" secondItem="vgG-aI-hsB" secondAttribute="bottom" id="gTn-x7-i9h"/>
+                                            <constraint firstItem="vgG-aI-hsB" firstAttribute="top" secondItem="YJc-YI-unv" secondAttribute="top" id="wWU-92-F0g"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="YJc-YI-unv" firstAttribute="height" secondItem="Xor-MI-fgo" secondAttribute="height" id="Oxh-3b-Pjl"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="a7D-3Q-I5U" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="QaQ-qL-yOH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="a7D-3Q-I5U" secondAttribute="bottom" constant="100" id="cuS-sC-BLB"/>
+                            <constraint firstItem="a7D-3Q-I5U" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jXe-K1-58A"/>
+                            <constraint firstItem="a7D-3Q-I5U" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="jns-p5-cIx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="a7D-3Q-I5U" secondAttribute="trailing" constant="20" id="u7b-qg-Zw0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="broadcastButton" destination="Ulu-bu-FkR" id="mwn-1Y-wB2"/>
+                        <outlet property="broadcastView" destination="Rbl-Z4-U3W" id="UgX-A1-1Ge"/>
+                        <outlet property="captureButton" destination="cCT-Ab-lMh" id="Dqi-iB-owK"/>
+                        <outlet property="pairingButton" destination="RFA-rd-LxH" id="tVZ-SV-0Md"/>
+                        <outlet property="recordingButton" destination="3E2-yX-Lhz" id="c0E-Bw-eKc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="114"/>
+        </scene>
+    </scenes>
+</document>
