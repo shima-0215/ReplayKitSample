@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet private var broadcastView: UIView!
     
     private var recorder = RPScreenRecorder.shared()
+    private var appGroups: AppGroupsManager!
     
     private var controller: Any?
     @available(iOS 10.0, *)
@@ -44,6 +45,8 @@ class ViewController: UIViewController {
         setupRecorder()
         setupBroadcastPickerView()
         setupKVO()
+        
+        appGroups = AppGroupsManager(delegate: self)
     }
     
     func setupUI() {
@@ -72,6 +75,7 @@ class ViewController: UIViewController {
 //                })!)
         }
     }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         switch keyPath {
         case "serviceInfo":
@@ -296,5 +300,20 @@ extension ViewController: RPBroadcastControllerDelegate {
     
     func broadcastController(_ broadcastController: RPBroadcastController, didUpdateServiceInfo serviceInfo: [String : NSCoding & NSObjectProtocol]) {
         print("\(#function) \(serviceInfo)")
+    }
+}
+
+extension ViewController: AppGroupsManagerDelegate {
+    @available(iOS 10.0, *)
+    func sampleBufferType(sampleBufferType: RPSampleBufferType) {
+        print("\(#function) \(sampleBufferType.rawValue)")
+    }
+    
+    func sampleBuffer(sampleBuffer: CMSampleBuffer) {
+        print("\(#function) \(sampleBuffer)")
+    }
+    
+    func changeState(state: AppGroupsManager.BroadcastState) {
+        print("\(#function) \(state)")
     }
 }
