@@ -8,6 +8,10 @@
 
 import ReplayKit
 
+enum BroadcastError: Error {
+    case notMeeting
+}
+
 class SampleHandler: RPBroadcastSampleHandler {
 
     override func broadcastStarted(withSetupInfo setupInfo: [String : NSObject]?) {
@@ -15,6 +19,7 @@ class SampleHandler: RPBroadcastSampleHandler {
         print("started")
         updateServiceInfo(["state": (0) as NSCoding & NSObjectProtocol])
         AppGroupsManager().state = .started
+//        finishBroadcastWithError(BroadcastError.notMeeting)
     }
     
     override func broadcastPaused() {
@@ -38,16 +43,16 @@ class SampleHandler: RPBroadcastSampleHandler {
     
     override func finishBroadcastWithError(_ error: Error) {
         print("Error \(error)")
-        AppGroupsManager().state = .finished
+        AppGroupsManager().state = .error
+        super.finishBroadcastWithError(error)
     }
     
     override func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, with sampleBufferType: RPSampleBufferType) {
-        AppGroupsManager().type = sampleBufferType
         switch sampleBufferType {
         case RPSampleBufferType.video:
             // Handle video sample buffer
             print("video sample")
-//            AppGroupsManager().sampleBuffer = sampleBuffer
+            AppGroupsManager().sampleBuffer = sampleBuffer
             break
         case RPSampleBufferType.audioApp:
             // Handle audio sample buffer for app audio

@@ -246,8 +246,8 @@ class ViewController: UIViewController {
 // MARK: - RPScreenRecorderDelegate
 extension ViewController: RPScreenRecorderDelegate {
     func screenRecorderDidChangeAvailability(_ screenRecorder: RPScreenRecorder) {
-        print("\(#function) isAvailable:\(screenRecorder.isAvailable)")
-        print("\(#function) isRecording:\(screenRecorder.isRecording)")
+//        print("\(#function) isAvailable:\(screenRecorder.isAvailable)")
+//        print("\(#function) isRecording:\(screenRecorder.isRecording)")
     }
 }
 

@@ -10,10 +10,10 @@ import Foundation
 import ReplayKit
 
 protocol AppGroupsManagerDelegate {
-    func changeState(state: AppGroupsManager.BroadcastState)
-    func sampleBuffer(sampleBuffer: CMSampleBuffer)
     @available(iOS 10.0, *)
     func sampleBufferType(sampleBufferType: RPSampleBufferType)
+    func changeState(state: AppGroupsManager.BroadcastState)
+    func sampleBuffer(sampleBuffer: CMSampleBuffer)
 }
 
 class AppGroupsManager: NSObject {
@@ -29,6 +29,7 @@ class AppGroupsManager: NSObject {
         case paused
         case resumed
         case finished
+        case error
     }
     
     override init() {
@@ -50,6 +51,7 @@ class AppGroupsManager: NSObject {
     deinit {
         userDefaults.removeObject(forKey: kState)
         userDefaults.removeObject(forKey: kSampleBuffer)
+        userDefaults.removeObject(forKey: kType)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -61,36 +63,12 @@ class AppGroupsManager: NSObject {
             guard let value = change?[NSKeyValueChangeKey.newKey] as? Data else { return }
             delegate?.sampleBuffer(sampleBuffer: NSKeyedUnarchiver.unarchiveObject(with: value) as! CMSampleBuffer)
         case kType:
-            guard let value = change?[NSKeyValueChangeKey.newKey] as? Int else { return }
             if #available(iOS 10.0, *) {
+                guard let value = change?[NSKeyValueChangeKey.newKey] as? Int else { return }
                 delegate?.sampleBufferType(sampleBufferType: RPSampleBufferType(rawValue: value)!)
-            } else {
-                // Fallback on earlier versions
             }
         default:
             break
-        }
-    }
-    
-    var state: BroadcastState? {
-        get {
-            return userDefaults?.object(forKey: kState) as? BroadcastState
-        }
-        set {
-            userDefaults?.set(newValue?.rawValue, forKey: kState)
-        }
-    }
-    
-    var sampleBuffer: CMSampleBuffer? {
-        get {
-            if let value = userDefaults.object(forKey: kSampleBuffer) as? Data {
-                return NSKeyedUnarchiver.unarchiveObject(with: value) as! CMSampleBuffer
-            }
-            return nil
-        }
-        set {
-            let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
-            userDefaults.set(data, forKey: kSampleBuffer)
         }
     }
     
@@ -100,7 +78,38 @@ class AppGroupsManager: NSObject {
             userDefaults.set(newValue?.rawValue, forKey: kType)
         }
         get {
-            return userDefaults.object(forKey: kType) as? RPSampleBufferType
+            guard let value = userDefaults.object(forKey: kType) as? Int else { return nil }
+            return RPSampleBufferType(rawValue: value)
+        }
+    }
+    
+    var state: BroadcastState? {
+        set {
+            userDefaults.set(newValue?.rawValue, forKey: kState)
+        }
+        get {
+            guard let value = userDefaults.object(forKey: kState) as? Int else { return nil }
+            return BroadcastState(rawValue: value)
+        }
+    }
+    
+    var sampleBuffer: CMSampleBuffer? {
+        get {
+//            if let value = userDefaults.object(forKey: kSampleBuffer) as? Data {
+//                return NSKeyedUnarchiver.unarchiveObject(with: value) as! CMSampleBuffer
+//            }
+            return nil
+        }
+        set {
+            let imageBuffer = CMSampleBufferGetImageBuffer(newValue!)
+            CVPixelBufferLockBaseAddress(imageBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+            let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer!)
+            let height = CVPixelBufferGetHeight(imageBuffer!)
+            let src_buff = CVPixelBufferGetBaseAddress(imageBuffer!)
+            let data = NSData(bytes: src_buff, length: bytesPerRow * height)
+            CVPixelBufferUnlockBaseAddress(imageBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+            let archiveData = NSKeyedArchiver.archivedData(withRootObject: data)
+            userDefaults.set(archiveData, forKey: kSampleBuffer)
         }
     }
 }
